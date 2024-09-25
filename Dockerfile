@@ -13,9 +13,15 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the FastAPI application code into the container
 COPY . .
 
+# Generate self-signed certificate
+RUN apt-get update && \
+    apt-get install -y openssl && \
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout /app/selfsigned.key -out /app/selfsigned.crt \
+    -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost"
+
 # Expose the port FastAPI will run on
-EXPOSE 8000
+EXPOSE 443
 
 # Run the FastAPI app with Uvicorn
-CMD ["uvicorn", "chat:app", "--host", "0.0.0.0", "--port", "8000", "--reload","ssl_keyfile","/etc/ssl/private/selfsigned.key","ssl_certfile","/etc/ssl/certs/selfsigned.crt"]
-
+CMD ["uvicorn", "chat:app", "--host", "0.0.0.0", "--port", "443", "--reload","--ssl_keyfile","/app/selfsigned.key","--ssl_certfile","/app/selfsigned.crt"]
