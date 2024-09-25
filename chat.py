@@ -10,6 +10,7 @@ from pydantic import BaseModel
 import json
 from fastapi.middleware.cors import CORSMiddleware
 import time
+import uvicorn
 
 app = FastAPI()
 
