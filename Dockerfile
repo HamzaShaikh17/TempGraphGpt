@@ -21,7 +21,7 @@ RUN apt-get update && \
     -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost"
 
 # Expose the port FastAPI will run on
-EXPOSE 443
+EXPOSE 8080
 
 # Run the FastAPI app with Uvicorn
 CMD ["uvicorn", "chat:app", "--host", "0.0.0.0", "--port", "8080", "--reload","--ssl_keyfile","/app/selfsigned.key","--ssl_certfile","/app/selfsigned.crt"]
