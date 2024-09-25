@@ -17,5 +17,5 @@ COPY . .
 EXPOSE 8000
 
 # Run the FastAPI app with Uvicorn
-CMD ["uvicorn", "chat:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uvicorn", "chat:app", "--host", "0.0.0.0", "--port", "8000", "--reload","ssl_keyfile","/etc/ssl/private/selfsigned.key","ssl_certfile","/etc/ssl/certs/selfsigned.crt"]
 
